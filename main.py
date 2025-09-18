@@ -1,3 +1,8 @@
+from dagshub.common.init import init
+init(repo_owner="AshwinBalaji007", repo_name="End-to-End-MLOps-Pipeline")
+
+import mlflow
+
 from End_to_End_MLOps_Pipeline import logger
 from End_to_End_MLOps_Pipeline.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
 from End_to_End_MLOps_Pipeline.pipeline.stage_02_data_validation import DataValidationTrainingPipeline
