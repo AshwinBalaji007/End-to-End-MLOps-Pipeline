@@ -1,0 +1,15 @@
+artifact_uri: file:///workspaces/End-to-End-MLOps-Pipeline/mlruns/0/cf1a81cca28e4fee8d7e813fa09732c5/artifacts
+end_time: 1758212263177
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: cf1a81cca28e4fee8d7e813fa09732c5
+run_name: debonair-bee-889
+run_uuid: cf1a81cca28e4fee8d7e813fa09732c5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1758212258750
+status: 3
+tags: []
+user_id: codespace

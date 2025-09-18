@@ -1,0 +1,15 @@
+artifact_uri: file:///workspaces/End-to-End-MLOps-Pipeline/mlruns/0/d53c18064fe04e868f5eea07e0308209/artifacts
+end_time: 1758211827029
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d53c18064fe04e868f5eea07e0308209
+run_name: kindly-dog-74
+run_uuid: d53c18064fe04e868f5eea07e0308209
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1758211821452
+status: 3
+tags: []
+user_id: codespace

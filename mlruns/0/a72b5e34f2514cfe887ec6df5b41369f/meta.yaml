@@ -1,0 +1,15 @@
+artifact_uri: file:///workspaces/End-to-End-MLOps-Pipeline/mlruns/0/a72b5e34f2514cfe887ec6df5b41369f/artifacts
+end_time: 1758211945876
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a72b5e34f2514cfe887ec6df5b41369f
+run_name: trusting-skunk-545
+run_uuid: a72b5e34f2514cfe887ec6df5b41369f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1758211941635
+status: 3
+tags: []
+user_id: codespace
