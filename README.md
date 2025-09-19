@@ -1,154 +1,57 @@
-# End-to-End-MLOps-Pipeline
+# End-to-End MLOps Pipeline for a Real-Time Prediction Service
 
+[![Python](https://img.shields.io/badge/Python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
+[![Docker](https://img.shields.io/badge/Docker-20.10-blue.svg)](https://www.docker.com/)
+[![Flask](https://img.shields.io/badge/Flask-2.0-lightgrey.svg)](https://flask.palletsprojects.com/)
+[![CI/CD](https://img.shields.io/badge/CI/CD-GitHub_Actions-green.svg)](https://github.com/features/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+This repository contains the source code for a complete, production-grade MLOps pipeline built to serve a real-time wine quality prediction model. The core of this project is not just the machine learning model itself, but the robust engineering framework that automates its deployment, ensuring scalability, reproducibility, and continuous integration.
 
+---
 
-# How to run?
-### STEPS:
+## 🎥 Project Demo
 
-Clone the repository
 
-```bash
-https://github.com/AshwinBalaji007/End-to-End-MLOps-Pipeline
-```
-### STEP 01- Create a conda environment after opening the repository
+<img width="1888" height="621" alt="image (2)" src="https://github.com/user-attachments/assets/2e37120b-cfd6-4c81-9275-2fdfd8c6d761" />
 
-```bash
-conda create -n mlproj python=3.8 -y
-```
 
-```bash
-conda activate mlproj
-```
 
+---
 
-### STEP 02- install the requirements
-```bash
-pip install -r requirements.txt
-```
+## 🎯 The Business Problem & The Solution
 
+**Problem:** Data science teams often build powerful machine learning models that remain stuck in Jupyter Notebooks. The process of deploying these models into a live, scalable, and reliable application is a significant engineering challenge, often referred to as the "last mile" problem of machine learning.
 
-```bash
-# Finally run the following command
-python app.py
-```
+**Solution:** This project tackles that problem head-on by implementing a full MLOps pipeline. It takes a trained Scikit-learn model and deploys it as a containerized REST API, creating a robust system that can be automated and integrated into other business applications. The Wine Quality Prediction app serves as the tangible use case for this powerful engineering framework.
 
-Now,
-```bash
-open up you local host and port
-```
+---
 
+## ✨ Key Features
 
+- **ML Model:** An Elastic Net regression model trained to predict wine quality based on physicochemical properties.
+- **Prediction API:** A Flask-based REST API that exposes the model for real-time inference.
+- **Containerization:** The entire application (API + model) is packaged into a portable, scalable **Docker** container.
+- **CI/CD Ready:** The project is structured for automated workflows, including building, testing, and deploying the container.
+- **Simple UI:** A basic HTML/CSS frontend to interact with the prediction service.
 
-## MLflow
+---
 
-[Documentation](https://mlflow.org/docs/latest/index.html)
+## 🛠️ Tech Stack
 
+- **Language:** Python
+- **ML & Data:** Scikit-learn, Pandas, NumPy
+- **API & Web:** Flask, HTML/CSS
+- **MLOps & Engineering:** Docker, GitHub Actions (for CI/CD), AWS(for deployment)
 
-##### cmd
-- mlflow ui
+---
 
-### dagshub
-[dagshub](https://dagshub.com/)
+## 🏗️ MLOps Pipeline Architecture
 
-MLFLOW_TRACKING_URI=https://dagshub.com/entbappy/End-to-end-Machine-Learning-Project-with-MLflow.mlflow \
-MLFLOW_TRACKING_USERNAME=entbappy \
-MLFLOW_TRACKING_PASSWORD=6824692c47a369aa6f9eac5b10041d5c8edbcef0 \
-python script.py
+This project is designed to be deployed using a standard CI/CD workflow:
 
-Run this to export as env variables:
-
-```bash
-
-export MLFLOW_TRACKING_URI=https://dagshub.com/AshwinBalaji007/End-to-End-MLOps-Pipeline.mlflow
-
-export MLFLOW_TRACKING_USERNAME=AshwinBalaji007 
-
-export MLFLOW_TRACKING_PASSWORD=348ff2722ac77494369eb846bb75c50b7b698450
-
-```
-
-
-
-# AWS-CICD-Deployment-with-Github-Actions
-
-## 1. Login to AWS console.
-
-## 2. Create IAM user for deployment
-
-	#with specific access
-
-	1. EC2 access : It is virtual machine
-
-	2. ECR: Elastic Container registry to save your docker image in aws
-
-
-	#Description: About the deployment
-
-	1. Build docker image of the source code
-
-	2. Push your docker image to ECR
-
-	3. Launch Your EC2 
-
-	4. Pull Your image from ECR in EC2
-
-	5. Lauch your docker image in EC2
-
-	#Policy:
-
-	1. AmazonEC2ContainerRegistryFullAccess
-
-	2. AmazonEC2FullAccess
-
-	
-## 3. Create ECR repo to store/save docker image
-    - Save the URI: 566373416292.dkr.ecr.ap-south-1.amazonaws.com/mlproj
-
-	
-## 4. Create EC2 machine (Ubuntu) 
-
-## 5. Open EC2 and Install docker in EC2 Machine:
-	
-	
-	#optinal
-
-	sudo apt-get update -y
-
-	sudo apt-get upgrade
-	
-	#required
-
-	curl -fsSL https://get.docker.com -o get-docker.sh
-
-	sudo sh get-docker.sh
-
-	sudo usermod -aG docker ubuntu
-
-	newgrp docker
-	
-# 6. Configure EC2 as self-hosted runner:
-    setting>actions>runner>new self hosted runner> choose os> then run command one by one
-
-
-# 7. Setup github secrets:
-
-    AWS_ACCESS_KEY_ID=
-
-    AWS_SECRET_ACCESS_KEY=
-
-    AWS_REGION = us-east-1
-
-    AWS_ECR_LOGIN_URI = demo>>  566373416292.dkr.ecr.ap-south-1.amazonaws.com
-
-    ECR_REPOSITORY_NAME = simple-app
-
-
-
-
-## About MLflow 
-MLflow
-
- - Its Production Grade
- - Trace all of your expriements
- - Logging & tagging your model
+1.  **Code Commit:** A developer pushes a change to this GitHub repository.
+2.  **CI Trigger:** A Continuous Integration tool (like GitHub Actions) is automatically triggered.
+3.  **Build & Test:** The CI pipeline builds the Docker image and runs any automated tests.
+4.  **Push to Registry:** The validated Docker image is pushed to a container registry (e.g., AWS ECR).
+5.  **CD Trigger:** A Continuous Delivery trigger deploys the new image to a cloud service (AWS App Runner), updating the live API with zero downtime.
