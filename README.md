@@ -1,4 +1,4 @@
-# End-to-End MLOps Pipeline for a Real-Time Prediction Service
+# End-to-End MLOps Pipeline on AWS for Real-Time Prediction
 
 [![Python](https://img.shields.io/badge/Python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
 [![Docker](https://img.shields.io/badge/Docker-20.10-blue.svg)](https://www.docker.com/)
@@ -6,7 +6,8 @@
 [![CI/CD](https://img.shields.io/badge/CI/CD-GitHub_Actions-green.svg)](https://github.com/features/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This repository contains the source code for a complete, production-grade MLOps pipeline built to serve a real-time wine quality prediction model. The core of this project is not just the machine learning model itself, but the robust engineering framework that automates its deployment, ensuring scalability, reproducibility, and continuous integration.
+This project demonstrates a complete, production-grade MLOps pipeline built and deployed entirely on **Amazon Web Services (AWS)**. The use case is a real-time wine quality prediction service, but the core of the project is the robust, automated, and scalable cloud engineering framework.
+The entire CI/CD workflow is automated: a `git push` to the main branch triggers a pipeline that builds, tests, and deploys the new version of the application with zero downtime.
 
 ---
 
@@ -16,42 +17,67 @@ This repository contains the source code for a complete, production-grade MLOps 
 <img width="1888" height="621" alt="image (2)" src="https://github.com/user-attachments/assets/2e37120b-cfd6-4c81-9275-2fdfd8c6d761" />
 
 
+---
+
+
+
+## 🚀 Overview
+
+This repository contains a complete, production-grade MLOps pipeline built on **AWS**, demonstrating the full lifecycle of a machine learning model. The use case is a real-time wine quality prediction service, but the core of the project is the robust, automated, and scalable cloud engineering framework.
+
+The entire workflow is automated using **GitHub Actions for CI/CD**: a `git push` to the main branch automatically builds a new Docker image, pushes it to a container registry, and deploys it to a production environment running on an EC2 instance.
+
+This project also integrates **MLflow** for robust experiment tracking, model logging, and ensuring reproducibility.
 
 ---
 
-## 🎯 The Business Problem & The Solution
+## ✨ About MLflow
 
-**Problem:** Data science teams often build powerful machine learning models that remain stuck in Jupyter Notebooks. The process of deploying these models into a live, scalable, and reliable application is a significant engineering challenge, often referred to as the "last mile" problem of machine learning.
+**MLflow** is a production-grade, open-source platform for managing the end-to-end machine learning lifecycle. In this project, it is used for:
 
-**Solution:** This project tackles that problem head-on by implementing a full MLOps pipeline. It takes a trained Scikit-learn model and deploys it as a containerized REST API, creating a robust system that can be automated and integrated into other business applications. The Wine Quality Prediction app serves as the tangible use case for this powerful engineering framework.
+-   **Experiment Tracking:** Logging parameters, code versions, metrics, and output files for every training run.
+-   **Model Management:** Storing, versioning, and managing trained models in a centralized registry.
+-   **Reproducibility:** Ensuring that every part of the experiment can be reliably reproduced.
+
 
 ---
 
-## ✨ Key Features
+## ✨ Key Features & Technical Deep Dive
 
-- **ML Model:** An Elastic Net regression model trained to predict wine quality based on physicochemical properties.
-- **Prediction API:** A Flask-based REST API that exposes the model for real-time inference.
-- **Containerization:** The entire application (API + model) is packaged into a portable, scalable **Docker** container.
-- **CI/CD Ready:** The project is structured for automated workflows, including building, testing, and deploying the container.
-- **Simple UI:** A basic HTML/CSS frontend to interact with the prediction service.
+- **Automated CI/CD:** Implemented a full **CI/CD pipeline using AWS CodePipeline**, which automatically triggers on commits to the GitHub repository.
+- **Containerization:** The Flask API and ML model are containerized using **Docker**, creating a portable and reproducible system.
+- **Cloud Container Registry:** The Docker image is automatically built by AWS CodeBuild and stored in **Amazon Elastic Container Registry (ECR)**.
+- **Scalable Deployment:** The containerized application is deployed on **AWS Elastic Container Service (ECS) with Fargate** (or **AWS App Runner**), providing a serverless, auto-scaling, and resilient production environment.
+- **Machine Learning Model:** An Elastic Net regression model trained with Scikit-learn to predict wine quality.
+- **REST API:** A production-ready API built with **Flask** exposes the model for real-time inference.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Language:** Python
-- **ML & Data:** Scikit-learn, Pandas, NumPy
-- **API & Web:** Flask, HTML/CSS
-- **MLOps & Engineering:** Docker, GitHub Actions (for CI/CD), AWS(for deployment)
+| Category          | Technologies Used                                        |
+| ----------------- | -------------------------------------------------------- |
+| **Cloud Platform**| **Amazon Web Services (AWS)**                            |
+| **CI/CD** | **GitHub Actions** (with a Self-Hosted Runner on EC2) |
+| **Containerization**| **Docker, Amazon ECR**                                   |
+| **Deployment** | **Amazon EC2** |
+| **MLOps & Tracking**| **MLflow, DagsHub** |
+| **ML & Data**     | Python, Scikit-learn, Pandas                             |
+| **API & Web**     | Flask, HTML/CSS                                          |
 
 ---
 
-## 🏗️ MLOps Pipeline Architecture
 
-This project is designed to be deployed using a standard CI/CD workflow:
 
-1.  **Code Commit:** A developer pushes a change to this GitHub repository.
-2.  **CI Trigger:** A Continuous Integration tool (like GitHub Actions) is automatically triggered.
-3.  **Build & Test:** The CI pipeline builds the Docker image and runs any automated tests.
-4.  **Push to Registry:** The validated Docker image is pushed to a container registry (e.g., AWS ECR).
-5.  **CD Trigger:** A Continuous Delivery trigger deploys the new image to a cloud service (AWS App Runner), updating the live API with zero downtime.
+## ⚙️ MLOps Pipeline Architecture
+
+This project follows a professional, event-driven MLOps architecture:
+
+1.  **Source (GitHub):** A developer pushes a code change to the `main` branch of the GitHub repository.
+2.  **CI/CD Trigger (GitHub Actions):** This push automatically triggers a pre-configured workflow in **GitHub Actions**.
+3.  **Self-Hosted Runner (EC2):** The GitHub Actions job is picked up by a self-hosted runner configured on an **AWS EC2 instance**.
+4.  **Build & Push (Docker & ECR):** The runner executes the CI/CD steps:
+    -   It builds the Docker image from the `Dockerfile`.
+    -   It logs into **Amazon Elastic Container Registry (ECR)** using credentials stored in GitHub Secrets.
+    -   It pushes the new Docker image to our ECR repository.
+5.  **Deploy (EC2):** The final step in the workflow pulls the latest image from ECR onto the same EC2 instance and runs the new container, updating the live application.
